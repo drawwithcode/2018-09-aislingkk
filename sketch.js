@@ -7,7 +7,7 @@ var mappa = new Mappa('MapboxGL', "pk.eyJ1IjoiYWlzbGluZ2siLCJhIjoiY2pmaWNrcTV3MD
 var options = {
   lat: 20,
   lng: 0,
-  zoom: 1.6,
+  zoom: 1,
   style: "mapbox://styles/aislingk/cjp07y1sx00ii2smzthgi9i5v",
   pitch: 0
 }
