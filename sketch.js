@@ -18,8 +18,8 @@ var earthquake = function(la, ln, de) {
   this.dee = de;
   this.deee = map(this.dee, 0, 1000, 0, 40);
   this.drawNumber = function() {
-    stroke(10,255,255,10);
-    noFill();
+    fill(10,255,255,70);
+    stroke(255,255,10);
     var point = myMap.latLngToPixel(this.laa,this.lnn);
     ellipse(point.x,point.y,this.deee);
   }
@@ -31,7 +31,7 @@ function preload() {
 
 function setup() {
   canvas = createCanvas(windowWidth, windowHeight);
-  
+
   myMap = mappa.tileMap(options);
   myMap.overlay(canvas);
 
@@ -47,13 +47,14 @@ function setup() {
 }
 
 function draw() {
+  clear();
 
 //text
-  textSize(24);
+  fill(60);
+  noStroke();
+  textSize(18);
   textFont('Lora');
-  fill(255);
-  text('Earthquake All Over World', 70, 80);
-  background(10,10);
+  text('[ Earthquake All Over World ]', width/20, height/15);
 
 //function
   for (var i in earthQuakes) {
