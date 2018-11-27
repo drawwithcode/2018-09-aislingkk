@@ -1,11 +1,72 @@
-function preload(){
-  // put preload code here
+var myMap;
+var canvas;
+var earthQuakes = [];
+
+var mappa = new Mappa('MapboxGL', "pk.eyJ1IjoiYWlzbGluZ2siLCJhIjoiY2pmaWNrcTV3MDBkODJ4cXI4OTU5dzdjMyJ9.WuIfO31e1iVn-8cHtWGjhg");
+
+var options = {
+  lat: 20,
+  lng: 0,
+  zoom: 1.6,
+  style: "mapbox://styles/aislingk/cjp07y1sx00ii2smzthgi9i5v",
+  pitch: 0
+}
+
+var earthquake = function(la, ln, de) {
+  this.laa = la;
+  this.lnn = ln;
+  this.dee = de;
+  this.deee = map(this.dee, 0, 1000, 0, 40);
+  this.drawNumber = function() {
+    stroke(10,255,255,10);
+    noFill();
+    var point = myMap.latLngToPixel(this.laa,this.lnn);
+    ellipse(point.x,point.y,this.deee);
+  }
+}
+
+function preload() {
+  table = loadTable("assets/hearthquakes.csv", "csv", "header");
 }
 
 function setup() {
-  // put setup code here
+  canvas = createCanvas(windowWidth, windowHeight);
+  
+  myMap = mappa.tileMap(options);
+  myMap.overlay(canvas);
+
+  var rows = table.getRows();
+  for (var i = 0; i < rows.length; i++) {
+    var lat = rows[i].getNum("Latitude");
+    var lng = rows[i].getNum("Longitude");
+    var depth = rows[i].getNum("Depth");
+    var earthQuake = new earthquake(lat, lng, depth);
+    earthQuakes.push(earthQuake);
+  }
+
 }
 
 function draw() {
-  // put drawing code here
+
+//text
+  textSize(24);
+  textFont('Lora');
+  fill(255);
+  text('Earthquake All Over World', 70, 80);
+  background(10,10);
+
+//function
+  for (var i in earthQuakes) {
+    earthQuakes[i].drawNumber();
+  }
+}
+
+function mouseWheel() {
+  redraw()
+  return false
+}
+
+function mouseMoved() {
+  redraw()
+  return false
 }
